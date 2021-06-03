@@ -1,0 +1,30 @@
+### This file may be edited to adapt to your project ###
+
+# Base name for the main program
+PROGNAME = verbos-pancake
+
+# List of assembly source (.S) files
+ASMS =
+
+# List of assembly includes (optional)
+ASMDEPS =
+
+# List of C source files (.c)
+SRCS += src/main.c
+
+# List of C header files (optional)
+
+# List of additional includes (directories)
+DIRFLAGS += 
+
+# List of C++ source files (.cpp)
+CPPSRCS =
+
+# List of C++ deps (optional)
+CPPDEPS =
+
+# C source file where CRC info will be stored
+CRCSRC =
+
+# Name of linker program (change gcc to g++ if linking C++ files)
+LINKER = gcc
