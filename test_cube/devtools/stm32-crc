@@ -1,0 +1,46 @@
+#!/usr/bin/python3
+
+import sys
+
+# remember python integers have no size limit
+
+poly = 0x104C11DB7 # with leading coefficient 
+
+# we build a mask for leading byte (crc(yy000000))
+
+def crc_mask(data) :
+    x = data<<24
+    for _ in range(8):
+        x = x<<1
+        if (x&0x100000000):
+            x = x ^ poly
+    return (x | (data << 32))
+        
+crc_tab=[crc_mask(i) for i in range(256)]
+
+def crc_file(filename):
+    chunk_size=4096;
+    crc=0xffffffff
+    count=0
+    with open(filename,'rb+') as file:
+        data = file.read(chunk_size)
+        while data:
+            for c0,c1,c2,c3 in zip(*[iter(data)]*4):
+                crc = (crc << 8) ^ (c3 << 32)
+                crc = crc ^ crc_tab[crc >> 32]
+                crc = (crc << 8) ^ (c2 << 32)
+                crc = crc ^ crc_tab[crc >> 32]
+                crc = (crc << 8) ^ (c1 << 32)
+                crc = crc ^ crc_tab[crc >> 32]
+                crc = (crc << 8) ^ (c0 << 32)
+                crc = crc ^ crc_tab[crc >> 32]
+                count+=4
+            data = file.read(chunk_size)
+        print(format(crc,'08x')+'\t'+str(count)+'\t'+filename);
+
+def main():
+    for filename in sys.argv[1:] :
+        crc_file(filename)
+
+main()
+

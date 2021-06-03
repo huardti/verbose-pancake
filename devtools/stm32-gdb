@@ -1,0 +1,21 @@
+#!/bin/bash
+
+SCRIPTDIR=$(dirname "$(realpath $0)")
+
+
+if command -v arm-none-eabi-gdb;
+then
+    GDB=arm-none-eabi-gdb
+else if command -v gdb-multiarch;
+     then
+         GDB=gdb-multiarch
+     else
+	 echo Please install gdb-arm-none-eabi or gdb-multiarch
+	 exit 1
+     fi
+fi
+
+GDBDEBUGSCRIPT=$SCRIPTDIR/debug-script.gdb
+
+"$GDB" -silent -x "$GDBDEBUGSCRIPT" $@
+
