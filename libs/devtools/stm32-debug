@@ -1,0 +1,29 @@
+#!/bin/bash
+
+usage () {
+    echo -e Usage:
+    echo -e \\t$0 '<program>.elf'
+}
+
+if [ $# != 1 ]; then
+    usage
+    exit 1
+fi
+
+
+
+PROJDIR=$(realpath "$(dirname "$(realpath "$0")")/..")
+
+RELBIN=$(realpath --relative-to="$PROJDIR" "$1")
+
+STAMP=$(date "+%F-%T-%Z")
+
+TMP=$(mktemp -d /tmp/stm32-$STAMP-XXXX.d)
+
+LINK=$TMP/project.lnk
+
+ln -s "$PROJDIR" $LINK
+
+ddd --debugger $LINK/devtools/stm32-gdb $LINK/$RELBIN\
+    && rm $LINK\
+    && rmdir $TMP
