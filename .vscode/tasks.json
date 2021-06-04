@@ -5,7 +5,7 @@
             "label": "Build (make)",
             "command": "/usr/bin/make",
             "args": [
-                "-B"
+                //"-B"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
