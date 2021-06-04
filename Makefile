@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 include Makefile.project
 
 CUBEDIR=libs
@@ -45,30 +47,30 @@ CFLAGS = $(MCU) $(FFLAGS) -O0 -Os -Wall -Wdouble-promotion -std=gnu99 $(DIRFLAGS
 CFLAGS += -MMD -MP -MF"$(@:%.o=%.d)"
 
 LIBS = -lc -lm -lnosys
-LIBDIR = 
+LIBDIR =
 LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(OBJDIR)/project.map,--cref -Wl,--gc-sections
 
 all: $(ELF)
 
 $(OBJDIR)/%.o : $(SRCDIR)/%.c $(CDEPS) Makefile
 	@mkdir -p $(dir $@)
-	@echo "\e[33mCOMPILE $< => $@\e[39m"
+	@echo -e "\e[33mCOMPILE $< => $@\e[39m"
 	@arm-none-eabi-gcc $(CFLAGS) -Wa,-ahlns=$(OBJDIR)/$*.lst -g -c $< -o $@
-	@echo "\e[33mDONE $< => $@\e[39m"
+	@echo -e "\e[33mDONE $< => $@\e[39m"
 
 $(ELF): Makefile  build-lib $(OBJS)
 	@mkdir -p $(dir $@)
-	@echo "\e[33mLINK $@\e[39m"
+	@echo -e "\e[33mLINK $@\e[39m"
 	arm-none-eabi-gcc $(filter-out obj/main_cubeMX.o, $(wildcard obj/*.o)) $(LDFLAGS) -o $@
-	@echo "\e[33mDONE $@\e[39m"
+	@echo -e "\e[33mDONE $@\e[39m"
 
 build-lib:
 ifneq (,$(wildcard ./libs/Src/main.c))
 	mv libs/Src/main.c libs/Src/main_cubeMX.c
 endif
-	@echo "\e[33mbuilding HAL\e[39m"
+	@echo -e "\e[33mbuilding HAL \e[39m"
 	@make -j$(nproc) -C $(CUBEDIR)
-	@echo "\e[33mHAL done\e[39m"
+	@echo -e "\e[33mHAL done \e[39m"
 
 dump : $(ELF)
 	@echo "DUMP $<"
