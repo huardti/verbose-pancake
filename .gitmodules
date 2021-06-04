@@ -1,3 +1,0 @@
-[submodule "lib/STM32CubeF4"]
-	path = lib/STM32CubeF4
-	url = git@github.com:STMicroelectronics/STM32CubeF4.git
