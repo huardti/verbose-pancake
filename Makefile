@@ -1,29 +1,24 @@
 include Makefile.project
 
-CUBEDIR=test_cube
-
+CUBEDIR=libs
 TOOLSDIR=$(CUBEDIR)/devtools
 
-SRCDIR = src
 OBJDIR = obj
+SRCDIR = src
 BINDIR = bin
 
-ELF = $(BINDIR)/$(PROGNAME).elf
-BIN = $(BINDIR)/$(PROGNAME).bin
+OBJS = $(patsubst $(SRCDIR)/%.S,$(OBJDIR)/%.o,$(ASMS))
+OBJS += $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
+OBJS += $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(CPPSRCS))
 
-# OBJS = $(patsubst $(SRCDIR)/%.S,$(OBJDIR)/%.o,$(ASMS))
-# OBJS += $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
-# OBJS += $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(CPPSRCS))
+ELF = $(BINDIR)/$(PROGNAME).elf
 
 # cpu
 CPU = -mcpu=cortex-m4
-
 # fpu
 FPU = -mfpu=fpv4-sp-d16
-
 # float-abi
 FLOAT-ABI = -mfloat-abi=hard
-
 # mcu
 MCU = $(CPU) -mthumb $(FPU) $(FLOAT-ABI)
 
@@ -51,32 +46,29 @@ CFLAGS += -MMD -MP -MF"$(@:%.o=%.d)"
 
 LIBS = -lc -lm -lnosys
 LIBDIR = 
-LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(OBJDIR)/test.map,--cref -Wl,--gc-sections
+LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(OBJDIR)/project.map,--cref -Wl,--gc-sections
 
-
-CRCOBJ = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(CRCSRC))
-CRCOBJOK = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%_ok.o,$(CRCSRC))
-CRCLSTOK = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%_ok.lst,$(CRCSRC))
-CRCOBJS = $(filter-out $(CRCOBJ),$(OBJS)) $(CRCOBJOK)
-
-all: build-lib $(ELF)
+all: $(ELF)
 
 $(OBJDIR)/%.o : $(SRCDIR)/%.c $(CDEPS) Makefile
 	@mkdir -p $(dir $@)
-	@echo "COMPILE $< => $@"
+	@echo "\e[33mCOMPILE $< => $@\e[39m"
 	@arm-none-eabi-gcc $(CFLAGS) -Wa,-ahlns=$(OBJDIR)/$*.lst -g -c $< -o $@
-	@echo "DONE $< => $@"
+	@echo "\e[33mDONE $< => $@\e[39m"
 
-OBJS = $(wildcard obj/*.o)
-$(ELF): $(OBJS) Makefile
+$(ELF): Makefile  build-lib $(OBJS)
 	@mkdir -p $(dir $@)
-	@echo -n "LINK $@\n"
-	arm-none-eabi-gcc $(OBJS) $(LDFLAGS) -o $@
+	@echo "\e[33mLINK $@\e[39m"
+	arm-none-eabi-gcc $(filter-out obj/main_cubeMX.o, $(wildcard obj/*.o)) $(LDFLAGS) -o $@
+	@echo "\e[33mDONE $@\e[39m"
 
-build-lib: Makefile
-	@echo -n "building HAL\n"
-	@make -j$(nproc) -C test_cube
-	@echo -n "HAL done\n"
+build-lib:
+ifneq (,$(wildcard ./libs/Src/main.c))
+	mv libs/Src/main.c libs/Src/main_cubeMX.c
+endif
+	@echo "\e[33mbuilding HAL\e[39m"
+	@make -j$(nproc) -C $(CUBEDIR)
+	@echo "\e[33mHAL done\e[39m"
 
 dump : $(ELF)
 	@echo "DUMP $<"

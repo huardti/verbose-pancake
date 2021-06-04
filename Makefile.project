@@ -13,6 +13,7 @@ ASMDEPS =
 SRCS += src/main.c
 
 # List of C header files (optional)
+CDEPS =
 
 # List of additional includes (directories)
 DIRFLAGS += 
