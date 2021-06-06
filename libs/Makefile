@@ -29,14 +29,14 @@ OPT = -Og
 # paths
 #######################################
 # Build path
-BUILD_DIR = ../obj
+BUILD_DIR = ../obj/hal
 
 ######################################
 # source
 ######################################
 # C sources
 C_SOURCES =  \
-Src/main_cubeMX.c \
+Src/main.c \
 Src/gpio.c \
 Src/usart.c \
 Src/stm32f4xx_it.c \
