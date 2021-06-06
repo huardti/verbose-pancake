@@ -10,6 +10,8 @@
 #include "tim.h"
 #include "gpio.h"
 
+volatile int buzzer_state = 0;
+
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 
@@ -39,6 +41,12 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   if(GPIO_Pin == GPIO_PIN_8)
   {
     HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_8);
+
+    buzzer_state ^= 1;
+    if(buzzer_state)
+      HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
+    else
+      HAL_TIM_PWM_Stop(&htim2, TIM_CHANNEL_2);
   }
 }
 
