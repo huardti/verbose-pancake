@@ -83,6 +83,8 @@ void Error_Handler(void);
 #define SHIELD_USER_Pin GPIO_PIN_8
 #define SHIELD_USER_GPIO_Port GPIOB
 #define SHIELD_USER_EXTI_IRQn EXTI9_5_IRQn
+#define BUZZER_Pin GPIO_PIN_9
+#define BUZZER_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
