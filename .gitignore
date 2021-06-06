@@ -1,5 +1,6 @@
 bin/
 obj/*
+null.d
 
 .vscode/*
 !.vscode/tasks.json
