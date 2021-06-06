@@ -4,6 +4,7 @@
   * @file           : main.c
   * @brief          : Main program body
   ******************************************************************************
+<<<<<<< HEAD
   ** This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
   * USER CODE END. Other portions of this file, whether 
@@ -33,13 +34,27 @@
   * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
   * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+=======
+  * @attention
+  *
+  * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
+  * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+>>>>>>> 8d2f6c3 (Change CubeMX config)
   *
   ******************************************************************************
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+<<<<<<< HEAD
 #include "usart.h"
+=======
+>>>>>>> 8d2f6c3 (Change CubeMX config)
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -54,7 +69,10 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8d2f6c3 (Change CubeMX config)
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -107,7 +125,10 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+<<<<<<< HEAD
   MX_USART2_UART_Init();
+=======
+>>>>>>> 8d2f6c3 (Change CubeMX config)
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -145,7 +166,11 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
   RCC_OscInitStruct.PLL.PLLM = 16;
+<<<<<<< HEAD
   RCC_OscInitStruct.PLL.PLLN = 336;
+=======
+  RCC_OscInitStruct.PLL.PLLN = 320;
+>>>>>>> 8d2f6c3 (Change CubeMX config)
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV4;
   RCC_OscInitStruct.PLL.PLLQ = 2;
   RCC_OscInitStruct.PLL.PLLR = 2;
@@ -180,7 +205,14 @@ void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
+<<<<<<< HEAD
 
+=======
+  __disable_irq();
+  while (1)
+  {
+  }
+>>>>>>> 8d2f6c3 (Change CubeMX config)
   /* USER CODE END Error_Handler_Debug */
 }
 
@@ -196,7 +228,11 @@ void assert_failed(uint8_t *file, uint32_t line)
 {
   /* USER CODE BEGIN 6 */
   /* User can add his own implementation to report the file name and line number,
+<<<<<<< HEAD
      tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+=======
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+>>>>>>> 8d2f6c3 (Change CubeMX config)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
