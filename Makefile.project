@@ -1,5 +1,7 @@
 ### This file may be edited to adapt to your project ###
 
+USER_FLAGS = -Wall -Wextra -Werror
+
 # Base name for the main program
 PROGNAME = verbos-pancake
 
@@ -17,7 +19,7 @@ SRCS += src/motor_driver/motor_driver.c
 CDEPS = src/motor_driver/motor_driver.h
 
 # List of additional includes (directories)
-DIRFLAGS += 
+DIRFLAGS +=
 
 # List of C++ source files (.cpp)
 CPPSRCS =

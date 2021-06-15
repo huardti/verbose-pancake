@@ -43,7 +43,7 @@ ARCHFLAGS = -mtune=cortex-m4 -mthumb -march=armv7e-m -mfloat-abi=hard -mfpu=fpv4
 FFLAGS = -fsingle-precision-constant
 DIRFLAGS += -Isrc
 
-CFLAGS = $(MCU) $(FFLAGS) -O0 -Os -Wall -Wdouble-promotion -std=gnu99 $(DIRFLAGS) $(C_INCLUDES) $(C_DEFS) -fdata-sections -ffunction-sections
+CFLAGS = $(MCU) $(FFLAGS) -O0 -Os -Wdouble-promotion -std=gnu99 $(DIRFLAGS) $(C_INCLUDES) $(C_DEFS) -fdata-sections -ffunction-sections $(USER_FLAGS)
 CFLAGS += -MMD -MP -MF"$(@:%.o=%.d)"
 
 LIBS = -lc -lm -lnosys
