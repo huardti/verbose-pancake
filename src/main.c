@@ -14,14 +14,9 @@ int main(void)
     MX_GPIO_Init();
     MX_USART2_UART_Init();
     MX_TIM1_Init();
-    /* USER CODE BEGIN 2 */
-//    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
-//    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_RESET);
 
-    Doug_MD_Set(DOUG_MD_FORWARD, 100);
-    HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
-    HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
-    /* USER CODE END 2 */
+    Doug_MD_Set_Params(DOUG_MD_FORWARD, 50);
+    Doug_MD_Set_Motor(DOUG_MD_START);
 
     while (1)
     {
@@ -35,6 +30,6 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     {
         HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
 
-        Doug_MD_Set(DOUG_MD_TOGGLE, 100);
+        Doug_MD_Set_Params(DOUG_MD_TOGGLE, 30);
     }
 }
