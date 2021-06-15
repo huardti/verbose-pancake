@@ -6,6 +6,7 @@
 #include <stdio.h>
 
 #include "motor_driver/motor_driver.h"
+#include "motor_driver/hall_encoder.h"
 
 void SystemClock_Config(void);
 volatile int button_toggle = 0;
@@ -22,11 +23,14 @@ int main(void)
     Doug_MD_Set_Params(DOUG_MD_FORWARD, 30);
     Doug_MD_Set_Motor(DOUG_MD_START);
 
-    printf("DOUG FTW\n");
+    Doug_Hall_Encoder_Init();
+
+    printf("\e[2J\e[1;1H");
+    printf("DOUG FTW\n\r");
 
     while (1)
     {
-
+        Doug_Hall_Encoder_print_info();
     }
 }
 
