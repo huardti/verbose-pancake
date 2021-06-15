@@ -2,6 +2,9 @@
 #include "usart.h"
 #include "gpio.h"
 #include "tim.h"
+#include "retarget/retarget.h"
+#include <stdio.h>
+
 #include "motor_driver/motor_driver.h"
 
 void SystemClock_Config(void);
@@ -13,10 +16,13 @@ int main(void)
     SystemClock_Config();
     MX_GPIO_Init();
     MX_USART2_UART_Init();
+    RetargetInit(&huart2);
     MX_TIM1_Init();
 
     Doug_MD_Set_Params(DOUG_MD_FORWARD, 30);
     Doug_MD_Set_Motor(DOUG_MD_START);
+
+    printf("DOUG FTW\n");
 
     while (1)
     {

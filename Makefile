@@ -92,5 +92,5 @@ rawdebug: $(ELF) load
 	@echo "DEBUG $<"
 	@$(TOOLSDIR)/stm32-gdb $<
 
-minicom:
-	@minicom -b9600 -D /dev/ttyACM0
+minicom: $(ELF) load
+	@minicom -b 115200 -D /dev/ttyACM0
