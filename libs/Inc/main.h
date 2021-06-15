@@ -78,21 +78,25 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define B1_Pin GPIO_PIN_13
-#define B1_GPIO_Port GPIOC
-#define B1_EXTI_IRQn EXTI15_10_IRQn
+#define BLUE_USER_Pin GPIO_PIN_13
+#define BLUE_USER_GPIO_Port GPIOC
+#define BLUE_USER_EXTI_IRQn EXTI15_10_IRQn
 #define USART_TX_Pin GPIO_PIN_2
 #define USART_TX_GPIO_Port GPIOA
 #define USART_RX_Pin GPIO_PIN_3
 #define USART_RX_GPIO_Port GPIOA
 #define LD2_Pin GPIO_PIN_5
 #define LD2_GPIO_Port GPIOA
-#define PWM_Gauche_Pin GPIO_PIN_8
-#define PWM_Gauche_GPIO_Port GPIOA
-#define PWM_Pin GPIO_PIN_9
-#define PWM_GPIO_Port GPIOA
-#define PWM_Droite_Pin GPIO_PIN_10
-#define PWM_Droite_GPIO_Port GPIOA
+#define DIR1_Gauche_Pin GPIO_PIN_7
+#define DIR1_Gauche_GPIO_Port GPIOA
+#define PWM2_Gauche_Pin GPIO_PIN_8
+#define PWM2_Gauche_GPIO_Port GPIOA
+#define PWM3_Pin GPIO_PIN_9
+#define PWM3_GPIO_Port GPIOA
+#define PWM1_Droite_Pin GPIO_PIN_10
+#define PWM1_Droite_GPIO_Port GPIOA
+#define DIR2_Droite_Pin GPIO_PIN_11
+#define DIR2_Droite_GPIO_Port GPIOA
 #define TMS_Pin GPIO_PIN_13
 #define TMS_GPIO_Port GPIOA
 #define TCK_Pin GPIO_PIN_14
