@@ -15,7 +15,7 @@ int main(void)
     MX_USART2_UART_Init();
     MX_TIM1_Init();
 
-    Doug_MD_Set_Params(DOUG_MD_FORWARD, 50);
+    Doug_MD_Set_Params(DOUG_MD_FORWARD, 30);
     Doug_MD_Set_Motor(DOUG_MD_START);
 
     while (1)
@@ -30,6 +30,6 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     {
         HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
 
-        Doug_MD_Set_Params(DOUG_MD_TOGGLE, 30);
+        Doug_MD_Set_Params(DOUG_MD_TOGGLE, 25);
     }
 }
