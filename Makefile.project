@@ -11,9 +11,10 @@ ASMDEPS =
 
 # List of C source files (.c)
 SRCS += src/main.c
+SRCS += src/motor_driver/motor_driver.c
 
 # List of C header files (optional)
-CDEPS =
+CDEPS = src/motor_driver/motor_driver.h
 
 # List of additional includes (directories)
 DIRFLAGS += 
