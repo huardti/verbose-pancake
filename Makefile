@@ -43,8 +43,8 @@ ARCHFLAGS = -mtune=cortex-m4 -mthumb -march=armv7e-m -mfloat-abi=hard -mfpu=fpv4
 FFLAGS = -fsingle-precision-constant
 DIRFLAGS += -Isrc
 
-CFLAGS = $(MCU) $(FFLAGS) -O0 -Os -Wdouble-promotion -std=gnu99 $(DIRFLAGS) $(C_INCLUDES) $(C_DEFS) -fdata-sections -ffunction-sections $(USER_FLAGS)
-CFLAGS += -MMD -MP -MF"$(@:%.o=%.d)"
+FLAGS = $(MCU) $(FFLAGS) -O0 -Os -Wdouble-promotion -std=gnu99 $(DIRFLAGS) $(C_INCLUDES) $(C_DEFS) -fdata-sections -ffunction-sections $(USER_FLAGS)
+FLAGS += -MMD -MP -MF"$(@:%.o=%.d)"
 
 LIBS = -lc -lm -lnosys
 LIBDIR =
@@ -55,7 +55,7 @@ all: $(ELF)
 $(OBJDIR)/%.o : $(SRCDIR)/%.c $(CDEPS) Makefile
 	@mkdir -p $(dir $@)
 	@echo -e "\e[33mCOMPILE $< => $@\e[39m"
-	@arm-none-eabi-gcc $(CFLAGS) -Wa,-ahlns=$(OBJDIR)/$*.lst -g -c $< -o $@
+	@arm-none-eabi-gcc $(FLAGS) -Wa,-ahlns=$(OBJDIR)/$*.lst -g -c $< -o $@
 	@echo -e "\e[33mDONE $< => $@\e[39m"
 
 $(ELF): Makefile build-lib $(OBJS)
