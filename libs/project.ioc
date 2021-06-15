@@ -210,6 +210,6 @@ TIM1.Channel-PWM\ Generation3\ CH3=TIM_CHANNEL_3
 RCC.APB1Freq_Value=40000000
 PA7.GPIOParameters=GPIO_Label
 ProjectManager.DeviceId=STM32F446RETx
-ProjectManager.LibraryCopy=0
+ProjectManager.LibraryCopy=1
 PA3.GPIO_Label=USART_RX
 PA7.Signal=GPIO_Output
