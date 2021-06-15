@@ -2,6 +2,8 @@
 #include "usart.h"
 #include "gpio.h"
 #include "tim.h"
+#include "adc.h"
+
 #include "retarget/retarget.h"
 #include <stdio.h>
 
@@ -18,6 +20,11 @@ int main(void)
     MX_GPIO_Init();
     MX_USART2_UART_Init();
     RetargetInit(&huart2);
+    MX_TIM1_Init();
+    MX_ADC1_Init();
+
+//    HAL_ADCEx_Calibration_Start(&hadc1);
+    HAL_ADC_Start_IT(&hadc1);
 
     Doug_MD_Init();
     DougMD_Set_Direction(DOUG_MD_FORWARD);
@@ -43,4 +50,17 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 
         DougMD_Set_Direction(DOUG_MD_TOGGLE);
     }
+}
+
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
+{
+    int16_t adc_value = HAL_ADC_GetValue(&hadc1);
+    float   voltage = (float)adc_value * 3.3 / 1024;
+ //   if() // 558-713
+
+    printf("\r ADC : %d", adc_value);
+
+//        HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+
+
 }

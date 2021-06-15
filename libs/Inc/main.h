@@ -81,6 +81,8 @@ void Error_Handler(void);
 #define BLUE_USER_Pin GPIO_PIN_13
 #define BLUE_USER_GPIO_Port GPIOC
 #define BLUE_USER_EXTI_IRQn EXTI15_10_IRQn
+#define IR2_Gauche_Pin GPIO_PIN_1
+#define IR2_Gauche_GPIO_Port GPIOC
 #define USART_TX_Pin GPIO_PIN_2
 #define USART_TX_GPIO_Port GPIOA
 #define USART_RX_Pin GPIO_PIN_3
@@ -89,6 +91,8 @@ void Error_Handler(void);
 #define LED2_GPIO_Port GPIOA
 #define DIR1_Gauche_Pin GPIO_PIN_7
 #define DIR1_Gauche_GPIO_Port GPIOA
+#define IR1_Droite_Pin GPIO_PIN_0
+#define IR1_Droite_GPIO_Port GPIOB
 #define PWM2_Gauche_Pin GPIO_PIN_8
 #define PWM2_Gauche_GPIO_Port GPIOA
 #define PWM3_Pin GPIO_PIN_9
