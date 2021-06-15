@@ -11,12 +11,15 @@ ASMDEPS =
 
 # List of C source files (.c)
 SRCS += src/main.c
+SRCS += src/visEffect.c
+SRCS += src/ws2812b/ws2812b.c
+
 
 # List of C header files (optional)
 CDEPS =
 
 # List of additional includes (directories)
-DIRFLAGS += 
+DIRFLAGS +=
 
 # List of C++ source files (.cpp)
 CPPSRCS =
