@@ -61,7 +61,7 @@ $(OBJDIR)/%.o : $(SRCDIR)/%.c $(CDEPS) Makefile
 $(ELF): Makefile build-lib $(OBJS)
 	@mkdir -p $(dir $@)
 	@echo -e "\e[33mLINK $@\e[39m"
-	arm-none-eabi-gcc $(wildcard obj/*.o) $(filter-out obj/hal/main.o, $(wildcard obj/hal/*.o)) $(LDFLAGS) -o $@
+	arm-none-eabi-gcc $(wildcard obj/*.o) $(wildcard obj/hal/*.o) $(LDFLAGS) -o $@
 	@echo -e "\e[33mDONE $@\e[39m"
 
 build-lib:
