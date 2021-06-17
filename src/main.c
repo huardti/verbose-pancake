@@ -52,10 +52,10 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     }
 }
 
-void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc __attribute__((unused)))
 {
     int16_t adc_value = HAL_ADC_GetValue(&hadc1);
-    float   voltage = (float)adc_value * 3.3 / 1024;
+    //float   voltage = (float)adc_value * 3.3 / 1024;
  //   if() // 558-713
 
     printf("\r ADC : %d", adc_value);
