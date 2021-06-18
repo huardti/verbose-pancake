@@ -1,6 +1,6 @@
 ### This file may be edited to adapt to your project ###
 
-USER_FLAGS = -Wall -Wextra -Werror
+USER_FLAGS = -Wall -Wextra
 
 # Base name for the main program
 PROGNAME = verbos-pancake

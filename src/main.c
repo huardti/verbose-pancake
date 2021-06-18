@@ -18,28 +18,29 @@ int main(void)
     MX_GPIO_Init();
     MX_USART2_UART_Init();
     RetargetInit(&huart2);
-    MX_TIM1_Init();
 
-    Doug_MD_Set_Params(DOUG_MD_FORWARD, 30);
+    Doug_MD_Init();
+    DougMD_Set_Direction(DOUG_MD_FORWARD);
     Doug_MD_Set_Motor(DOUG_MD_START);
-
-    Doug_Hall_Encoder_Init();
 
     printf("\e[2J\e[1;1H");
     printf("DOUG FTW\n\r");
 
+    consigne = 70;
+
     while (1)
     {
-        Doug_Hall_Encoder_print_info();
+        printf("\r");
+        HAL_Delay(100);
     }
 }
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-    if (GPIO_Pin == GPIO_PIN_13)
+    if (GPIO_Pin == BLUE_USER_Pin)
     {
-        HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+        HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
 
-        Doug_MD_Set_Params(DOUG_MD_TOGGLE, 25);
+        DougMD_Set_Direction(DOUG_MD_TOGGLE);
     }
 }
