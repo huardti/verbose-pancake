@@ -48,7 +48,7 @@ FLAGS += -MMD -MP -MF"$(@:%.o=%.d)"
 
 LIBS = -lc -lm -lnosys
 LIBDIR =
-LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(OBJDIR)/project.map,--cref -Wl,--gc-sections
+LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(OBJDIR)/project.map,--cref -Wl,--gc-sections -u _printf_float
 
 all: $(ELF)
 
