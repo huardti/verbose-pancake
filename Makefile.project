@@ -16,11 +16,13 @@ SRCS += src/main.c
 SRCS += src/retarget/retarget.c
 SRCS += src/motor_driver/motor_driver.c
 SRCS += src/motor_driver/hall_encoder.c
+SRCS += src/ir_sensors/ir_sensors.c
 
 # List of C header files (optional)
 CDEPS = src/motor_driver/motor_driver.h
 CDEPS += src/retarget/retarget.h
 CDEPS += src/motor_driver/hall_encoder.h
+CDEPS += src/ir_sensors/ir_sensors.h
 
 # List of additional includes (directories)
 DIRFLAGS +=

@@ -3,12 +3,17 @@
 #include "gpio.h"
 #include "tim.h"
 #include "adc.h"
+#include "dma.h"
+
+#define MAIN
 
 #include "retarget/retarget.h"
 #include <stdio.h>
 
 #include "motor_driver/motor_driver.h"
 #include "motor_driver/hall_encoder.h"
+
+#include "ir_sensors/ir_sensors.h"
 
 void SystemClock_Config(void);
 volatile int button_toggle = 0;
@@ -22,9 +27,7 @@ int main(void)
     RetargetInit(&huart2);
     MX_TIM1_Init();
     MX_ADC1_Init();
-
-//    HAL_ADCEx_Calibration_Start(&hadc1);
-    HAL_ADC_Start_IT(&hadc1);
+    MX_DMA_Init();
 
     Doug_MD_Init();
     DougMD_Set_Direction(DOUG_MD_FORWARD);
@@ -35,10 +38,22 @@ int main(void)
 
     consigne = 70;
 
+
     while (1)
     {
-        printf("\r");
-        HAL_Delay(100);
+        HAL_ADC_Start_DMA(&hadc1, (uint32_t*) ir_values, DOUG_IR_CHANNELS);
+
+        for(int i = 0 ; i < DOUG_IR_CHANNELS ; ++i)
+        {
+            ir_voltages[i] = Doug_IR_value_to_voltage(ir_values[i]);
+        }
+
+        printf
+        (
+            "\r ADC : GAUCHE (( %4ld - %4.2f V )) DROITE (( %4ld - %4.2f V ))",
+            ir_values[0], ir_voltages[0],
+            ir_values[1], ir_voltages[1]
+        );
     }
 }
 
@@ -54,13 +69,5 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc __attribute__((unused)))
 {
-    int16_t adc_value = HAL_ADC_GetValue(&hadc1);
-    //float   voltage = (float)adc_value * 3.3 / 1024;
- //   if() // 558-713
-
-    printf("\r ADC : %d", adc_value);
-
-//        HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-
-
+    //ir_values[0] = HAL_ADC_GetValue(&hadc1);
 }
