@@ -26,8 +26,8 @@ int main(void)
     MX_USART2_UART_Init();
     RetargetInit(&huart2);
     MX_TIM1_Init();
-    MX_ADC1_Init();
     MX_DMA_Init();
+    MX_ADC1_Init();
 
     Doug_MD_Init();
     DougMD_Set_Direction(DOUG_MD_FORWARD);
