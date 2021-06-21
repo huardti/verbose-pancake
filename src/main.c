@@ -46,13 +46,14 @@ int main(void)
         for(int i = 0 ; i < DOUG_IR_CHANNELS ; ++i)
         {
             ir_voltages[i] = Doug_IR_value_to_voltage(ir_values[i]);
+            ir_distances[i] = Doug_IR_value_to_distance(ir_values[i]);
         }
 
         printf
         (
-            "\r ADC : GAUCHE (( %4ld - %4.2f V )) DROITE (( %4ld - %4.2f V ))",
-            ir_values[0], ir_voltages[0],
-            ir_values[1], ir_voltages[1]
+            "\r ADC : GAUCHE (( %4ld - %4.2f V - %4.2f cm )) DROITE (( %4ld - %4.2f V - %4.2f cm ))",
+            ir_values[0], ir_voltages[0], ir_distances[0],
+            ir_values[1], ir_voltages[1], ir_distances[1]
         );
     }
 }
