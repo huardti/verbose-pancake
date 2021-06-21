@@ -17,7 +17,7 @@
 
 void SystemClock_Config(void);
 volatile int button_toggle = 0;
-
+volatile IrDistance consigne_distance = 40;
 int main(void)
 {
     HAL_Init();
@@ -25,6 +25,7 @@ int main(void)
     MX_GPIO_Init();
     MX_USART2_UART_Init();
     RetargetInit(&huart2);
+
     MX_TIM1_Init();
     MX_DMA_Init();
     MX_ADC1_Init();
@@ -36,18 +37,12 @@ int main(void)
     printf("\e[2J\e[1;1H");
     printf("DOUG FTW\n\r");
 
-    consigne = 30;
-
+    consigne_d = 70;
+    consigne_g = 70;
 
     while (1)
     {
         HAL_ADC_Start_DMA(&hadc1, (uint32_t*) ir_values, DOUG_IR_CHANNELS);
-
-        for(int i = 0 ; i < DOUG_IR_CHANNELS ; ++i)
-        {
-            ir_voltages[i] = Doug_IR_value_to_voltage(ir_values[i]);
-            ir_distances[i] = Doug_IR_value_to_distance(ir_values[i]);
-        }
 
         printf
         (
@@ -68,23 +63,40 @@ int main(void)
 
         if(ir_distances[0] <= 30 || ir_distances[1] <= 30)
         {
-            Doug_MD_Set_Params(DOUG_MD_REVERSE, 50);
+            consigne_g = 30;
+            consigne_d = consigne_g;
+            DougMD_Set_Direction(DOUG_MD_REVERSE);
             Doug_MD_Set_Motor(DOUG_MD_START);
-
             continue;
         }
+
+
         if(ir_distances[0] <= 40 || ir_distances[1] <= 40)
         {
             Doug_MD_Set_Motor(DOUG_MD_STOP);
         }
-        else if(ir_distances[0] <= 60 || ir_distances[1] <= 60)
+        else if(ir_distances[0] <= 60)
         {
-            Doug_MD_Set_Params(DOUG_MD_FORWARD, 50);
+            consigne_d = 90;
+            DougMD_Set_Direction(DOUG_MD_FORWARD);
             Doug_MD_Set_Motor(DOUG_MD_START);
         }
-        else
+        else if(ir_distances[1] <= 60)
         {
-            Doug_MD_Set_Params(DOUG_MD_FORWARD, 70);
+            consigne_g = 90;
+            DougMD_Set_Direction(DOUG_MD_FORWARD);
+            Doug_MD_Set_Motor(DOUG_MD_START);
+        }
+        else if(ir_distances[0] > 60)
+        {
+            consigne_d = 70;
+            DougMD_Set_Direction(DOUG_MD_FORWARD);
+            Doug_MD_Set_Motor(DOUG_MD_START);
+        }
+        else if(ir_distances[1] > 60)
+        {
+            consigne_g = 70;
+            DougMD_Set_Direction(DOUG_MD_FORWARD);
             Doug_MD_Set_Motor(DOUG_MD_START);
         }
     }

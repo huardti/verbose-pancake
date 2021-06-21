@@ -1,6 +1,5 @@
 #include "hall_encoder.h"
 #include "retarget/retarget.h"
-#include "stm32_hal_legacy.h"
 
 #include <stdio.h>
 
@@ -8,8 +7,6 @@
 
 #include "main.h"
 #include "tim.h"
-
-volatile int consigne = 30;
 
 volatile Doug_PID_param PID_motor =
 {
@@ -20,6 +17,9 @@ volatile Doug_PID_param PID_motor =
 	.errSum = 0, //error sum
 	.lastError = 0 //last error
 };
+
+volatile int consigne_d = 30;
+volatile int consigne_g = 30;
 
 void Doug_Hall_Encoder_Init(void)
 {
@@ -70,26 +70,5 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
         }
         __HAL_TIM_SetCounter(&htim4, 0);
         HAL_TIM_Base_Start(&htim4);
-    }
-}
-
-volatile int errorD;
-volatile int errorG;
-
-volatile int PID_D;
-volatile int PID_G;
-
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-    if(htim->Instance == htim6.Instance)
-    {
-        errorD = consigne - speed_D;
-        errorG = consigne - speed_G;
-
-        PID_D = Doug_PID(errorD, &PID_motor);
-        PID_G = Doug_PID(errorG, &PID_motor);
-
-       DougMD_Set_SpeedD(PID_D);
-       DougMD_Set_SpeedG(PID_G);
     }
 }

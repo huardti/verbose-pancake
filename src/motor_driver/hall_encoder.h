@@ -7,7 +7,8 @@
 #define time_max_speed 3
 #define time_min_speed 40
 
-extern volatile int consigne;
+extern volatile int consigne_d;
+extern volatile int consigne_g;
 
 extern volatile Doug_PID_param PID_motor;
 
