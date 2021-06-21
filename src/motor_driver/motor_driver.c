@@ -73,7 +73,7 @@ void DougMD_Set_SpeedD(Doug_MD_Speed speed)
         __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, 0);
     }
 }
-
+/*
 double Doug_MD_PID(int error)
 {
     static double kP=1.1f;
@@ -93,7 +93,7 @@ double Doug_MD_PID(int error)
     I = errSum * kI;                 //Intégrale
     return P + I;
 }
-
+*/
 void Doug_MD_Set_Params(Doug_MD_Direction direction, Doug_MD_Speed speed)
 {
     if (direction == DOUG_MD_FORWARD)

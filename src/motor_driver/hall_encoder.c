@@ -10,6 +10,17 @@
 #include "tim.h"
 
 volatile int consigne = 30;
+
+volatile Doug_PID_param PID_motor =
+{
+    .Kp = 1.1f, // p
+	.Ki = 0.006f, //i
+
+	.Kd = 0, //d
+	.errSum = 0, //error sum
+	.lastError = 0 //last error
+};
+
 void Doug_Hall_Encoder_Init(void)
 {
     MX_TIM3_Init();
@@ -75,11 +86,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
         errorD = consigne - speed_D;
         errorG = consigne - speed_G;
 
-        PID_D = Doug_MD_PID(errorD);
-        PID_G = Doug_MD_PID(errorG);
+        PID_D = Doug_PID(errorD, &PID_motor);
+        PID_G = Doug_PID(errorG, &PID_motor);
 
        DougMD_Set_SpeedD(PID_D);
        DougMD_Set_SpeedG(PID_G);
     }
 }
-

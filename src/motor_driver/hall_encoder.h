@@ -2,10 +2,15 @@
 
 #include <inttypes.h>
 
+#include "pid/pid.h"
+
 #define time_max_speed 3
 #define time_min_speed 40
 
 extern volatile int consigne;
+
+extern volatile Doug_PID_param PID_motor;
+
 
 /*
 extern volatile int errorD;

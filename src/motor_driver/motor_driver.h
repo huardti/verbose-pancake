@@ -2,6 +2,8 @@
 
 #include "gpio.h"
 #include "tim.h"
+
+#include "pid/pid.h"
 typedef enum _Doug_MD_Direction
 {
 	DOUG_MD_REVERSE,
@@ -27,5 +29,3 @@ void Doug_MD_Set_Motor(Doug_MD_Motor_State state);
 void DougMD_Set_Speed(Doug_MD_Speed speed);
 void DougMD_Set_SpeedG(Doug_MD_Speed speed);
 void DougMD_Set_SpeedD(Doug_MD_Speed speed);
-
-double Doug_MD_PID(int error);

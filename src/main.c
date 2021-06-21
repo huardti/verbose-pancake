@@ -30,13 +30,13 @@ int main(void)
     MX_ADC1_Init();
 
     Doug_MD_Init();
-    DougMD_Set_Direction(DOUG_MD_FORWARD);
+    DougMD_Set_Direction(DOUG_MD_REVERSE);
     Doug_MD_Set_Motor(DOUG_MD_START);
 
     printf("\e[2J\e[1;1H");
     printf("DOUG FTW\n\r");
 
-    consigne = 70;
+    consigne = 30;
 
 
     while (1)
