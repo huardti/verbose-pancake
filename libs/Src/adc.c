@@ -53,7 +53,7 @@ void MX_ADC1_Init(void)
   hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
   hadc1.Init.NbrOfConversion = 2;
   hadc1.Init.DMAContinuousRequests = ENABLE;
-  hadc1.Init.EOCSelection = ADC_EOC_SEQ_CONV;
+  hadc1.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
   if (HAL_ADC_Init(&hadc1) != HAL_OK)
   {
     Error_Handler();
@@ -99,15 +99,15 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* adcHandle)
     PC1     ------> ADC1_IN11
     PB0     ------> ADC1_IN8
     */
-    GPIO_InitStruct.Pin = IR2_Gauche_Pin;
+    GPIO_InitStruct.Pin = IR2_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(IR2_Gauche_GPIO_Port, &GPIO_InitStruct);
+    HAL_GPIO_Init(IR2_GPIO_Port, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin = IR1_Droite_Pin;
+    GPIO_InitStruct.Pin = IR1_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(IR1_Droite_GPIO_Port, &GPIO_InitStruct);
+    HAL_GPIO_Init(IR1_GPIO_Port, &GPIO_InitStruct);
 
     /* ADC1 DMA Init */
     /* ADC1 Init */
@@ -152,9 +152,9 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
     PC1     ------> ADC1_IN11
     PB0     ------> ADC1_IN8
     */
-    HAL_GPIO_DeInit(IR2_Gauche_GPIO_Port, IR2_Gauche_Pin);
+    HAL_GPIO_DeInit(IR2_GPIO_Port, IR2_Pin);
 
-    HAL_GPIO_DeInit(IR1_Droite_GPIO_Port, IR1_Droite_Pin);
+    HAL_GPIO_DeInit(IR1_GPIO_Port, IR1_Pin);
 
     /* ADC1 DMA DeInit */
     HAL_DMA_DeInit(adcHandle->DMA_Handle);
