@@ -81,6 +81,9 @@ void Error_Handler(void);
 #define BLUE_USER_Pin GPIO_PIN_13
 #define BLUE_USER_GPIO_Port GPIOC
 #define BLUE_USER_EXTI_IRQn EXTI15_10_IRQn
+#define COLLISION2_Pin GPIO_PIN_1
+#define COLLISION2_GPIO_Port GPIOH
+#define COLLISION2_EXTI_IRQn EXTI1_IRQn
 #define IR2_Gauche_Pin GPIO_PIN_1
 #define IR2_Gauche_GPIO_Port GPIOC
 #define USART_TX_Pin GPIO_PIN_2

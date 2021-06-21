@@ -55,6 +55,38 @@ int main(void)
             ir_values[0], ir_voltages[0], ir_distances[0],
             ir_values[1], ir_voltages[1], ir_distances[1]
         );
+
+        if
+        (
+            !HAL_GPIO_ReadPin(COLLISION1_GPIO_Port, COLLISION1_Pin)
+            || !HAL_GPIO_ReadPin(COLLISION2_GPIO_Port, COLLISION2_Pin)
+        )
+        {
+            Doug_MD_Set_Motor(DOUG_MD_STOP);
+            continue;
+        }
+
+        if(ir_distances[0] <= 30 || ir_distances[1] <= 30)
+        {
+            Doug_MD_Set_Params(DOUG_MD_REVERSE, 50);
+            Doug_MD_Set_Motor(DOUG_MD_START);
+
+            continue;
+        }
+        if(ir_distances[0] <= 40 || ir_distances[1] <= 40)
+        {
+            Doug_MD_Set_Motor(DOUG_MD_STOP);
+        }
+        else if(ir_distances[0] <= 60 || ir_distances[1] <= 60)
+        {
+            Doug_MD_Set_Params(DOUG_MD_FORWARD, 50);
+            Doug_MD_Set_Motor(DOUG_MD_START);
+        }
+        else
+        {
+            Doug_MD_Set_Params(DOUG_MD_FORWARD, 70);
+            Doug_MD_Set_Motor(DOUG_MD_START);
+        }
     }
 }
 
@@ -65,6 +97,10 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
         HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
 
         DougMD_Set_Direction(DOUG_MD_TOGGLE);
+    }
+    if(GPIO_Pin == COLLISION1_Pin || GPIO_Pin == COLLISION2_Pin)
+    {
+        Doug_MD_Set_Motor(DOUG_MD_STOP);
     }
 }
 

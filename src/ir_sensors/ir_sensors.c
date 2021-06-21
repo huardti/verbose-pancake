@@ -20,5 +20,10 @@ IrDistance Doug_IR_voltage_to_distance(IrVoltage voltage)
 
 IrDistance Doug_IR_value_to_distance(IrValue value)
 {
-    return Doug_IR_voltage_to_distance(Doug_IR_value_to_voltage(value));
+    IrDistance return_value = Doug_IR_voltage_to_distance(Doug_IR_value_to_voltage(value));
+
+    if(return_value >= 150)
+        return 150;
+    else
+        return return_value;
 }
