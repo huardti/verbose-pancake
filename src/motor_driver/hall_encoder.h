@@ -19,11 +19,19 @@ extern volatile int PID_D;
 extern volatile int PID_G;
 */
 
+#ifdef MAIN
 volatile uint16_t time_encoder_D;
 volatile uint16_t time_encoder_G;
 
 volatile uint16_t speed_G;
 volatile uint16_t speed_D;
+#else
+extern volatile uint16_t time_encoder_D;
+extern volatile uint16_t time_encoder_G;
+
+extern volatile uint16_t speed_G;
+extern volatile uint16_t speed_D;
+#endif
 
 /* debug PID */
 // printf("speed %4d,  %4d ; error %4d %4d ; PID : %d, %d", speed_G,speed_D, errorD, errorG, PID_G, PID_D);

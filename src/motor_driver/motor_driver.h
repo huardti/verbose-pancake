@@ -13,7 +13,11 @@ typedef enum _Doug_MD_Direction
 
 typedef uint8_t Doug_MD_Speed;
 
+#ifdef MAIN
 volatile Doug_MD_Speed Doug_speed;
+#else
+extern volatile Doug_MD_Speed Doug_speed;
+#endif
 typedef enum _Doug_MD_Motor_State
 {
 	DOUG_MD_START,
