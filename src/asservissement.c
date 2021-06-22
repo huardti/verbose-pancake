@@ -32,6 +32,15 @@ int Doug_Hall_Set_Target(int mesure)
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
+    if
+    (
+        !HAL_GPIO_ReadPin(COLLISION1_GPIO_Port, COLLISION1_Pin)
+        || !HAL_GPIO_ReadPin(COLLISION2_GPIO_Port, COLLISION2_Pin)
+    )
+    {
+        Doug_MD_Set_Motor(DOUG_MD_STOP);
+        return;
+    }
     #if 1
     if(htim->Instance == htim6.Instance)
     {

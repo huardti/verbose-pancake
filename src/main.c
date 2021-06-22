@@ -59,16 +59,6 @@ int main(void)
             "\r ADC : GAUCHE (%4.2f cm) DROITE (%4.2f cm), consigneG = %5d, consigneD = %5d",
             ir_distances[0], ir_distances[1], consigne_G, consigne_D
         );
-
-        if
-        (
-            !HAL_GPIO_ReadPin(COLLISION1_GPIO_Port, COLLISION1_Pin)
-            || !HAL_GPIO_ReadPin(COLLISION2_GPIO_Port, COLLISION2_Pin)
-        )
-        {
-            Doug_MD_Set_Motor(DOUG_MD_STOP);
-            continue;
-        }
     }
 }
 

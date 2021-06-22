@@ -83,7 +83,6 @@ void Error_Handler(void);
 #define BLUE_USER_EXTI_IRQn EXTI15_10_IRQn
 #define COLLISION2_Pin GPIO_PIN_1
 #define COLLISION2_GPIO_Port GPIOH
-#define COLLISION2_EXTI_IRQn EXTI1_IRQn
 #define IR2_Pin GPIO_PIN_1
 #define IR2_GPIO_Port GPIOC
 #define USART_TX_Pin GPIO_PIN_2
@@ -92,7 +91,6 @@ void Error_Handler(void);
 #define USART_RX_GPIO_Port GPIOA
 #define COLLISION1_Pin GPIO_PIN_4
 #define COLLISION1_GPIO_Port GPIOA
-#define COLLISION1_EXTI_IRQn EXTI4_IRQn
 #define LED2_Pin GPIO_PIN_5
 #define LED2_GPIO_Port GPIOA
 #define DIR2_Droite_Pin GPIO_PIN_7
