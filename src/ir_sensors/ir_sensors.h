@@ -2,7 +2,7 @@
 
 #include "dma.h"
 
-#define DOUG_IR_CHANNELS 2
+#define DOUG_IR_CHANNELS 3
 
 typedef uint32_t IrValue;
 typedef double	 IrVoltage;

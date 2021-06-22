@@ -44,9 +44,10 @@ int main(void)
 
     DougMD_Set_Speed(60);
 
+    HAL_ADC_Start_DMA(&hadc1, (uint32_t*) ir_values, DOUG_IR_CHANNELS);
+
     while (1)
     {
-        HAL_ADC_Start_DMA(&hadc1, (uint32_t*) ir_values, DOUG_IR_CHANNELS);
 
         for(int i = 0 ; i < DOUG_IR_CHANNELS ; ++i)
         {
@@ -56,8 +57,8 @@ int main(void)
 
         printf
         (
-            "\r ADC : GAUCHE (%4.2f cm) DROITE (%4.2f cm), consigneG = %5d, consigneD = %5d",
-            ir_distances[0], ir_distances[1], consigne_G, consigne_D
+            "\r ADC : GAUCHE (%6.2f cm) DROITE (%6.2f cm) ULTRASOUND (%6d), consigneG = %5d, consigneD = %5d",
+            ir_distances[0], ir_distances[1], ir_values[2], consigne_G, consigne_D
         );
     }
 }
