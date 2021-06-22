@@ -10,6 +10,8 @@
 extern volatile int consigne_d;
 extern volatile int consigne_g;
 
+extern volatile int consigne_position;
+
 extern volatile Doug_PID_param PID_motor;
 
 

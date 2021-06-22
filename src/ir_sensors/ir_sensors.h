@@ -13,9 +13,9 @@ volatile IrValue    ir_values[DOUG_IR_CHANNELS] = {0};
 volatile IrVoltage  ir_voltages[DOUG_IR_CHANNELS] = {0.0};
 volatile IrDistance  ir_distances[DOUG_IR_CHANNELS] = {0.0};
 #else
-extern volatile IrValue    *ir_values;
-extern volatile IrVoltage  *ir_voltages;
-extern volatile IrDistance *ir_distances;
+extern volatile IrValue    ir_values[DOUG_IR_CHANNELS];
+extern volatile IrVoltage  ir_voltages[DOUG_IR_CHANNELS];
+extern volatile IrDistance ir_distances[DOUG_IR_CHANNELS];
 #endif
 
 IrVoltage Doug_IR_value_to_voltage(IrValue value);

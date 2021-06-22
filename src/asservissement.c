@@ -6,52 +6,62 @@
 #include "main.h"
 #include "tim.h"
 
-/* vitesse */
+
 volatile int errorD;
 volatile int errorG;
+
+volatile int error_positionD;
+volatile int error_positionG;
+
+volatile int consigneG;
+volatile int consigneD;
 
 volatile int PID_D;
 volatile int PID_G;
 
+int Doug_Hall_Set_Target(int mesure)
+{
+    int return_value = 2 * (mesure - consigne_position) + 50;
 
-/* position */
-extern volatile IrDistance consigne_distance;
+    if(return_value > 100) return_value = 100;
+    if(consigne < 0) consigne = -consigne;
 
-
-volatile int errorD_position;
-volatile int errorG_position;
-
-volatile int PID_D_position;
-volatile int PID_G_position;
-
-
+    return return_value;
+}
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-
-    for(int i = 0 ; i < DOUG_IR_CHANNELS ; ++i)
-    {
-        ir_voltages[i] = Doug_IR_value_to_voltage(ir_values[i]);
-        ir_distances[i] = Doug_IR_value_to_distance(ir_values[i]);
-    }
-
     if(htim->Instance == htim6.Instance)
     {
-        /* vitesse */
-        errorD = consigne_d - speed_D;
-        errorG = consigne_g - speed_G;
+        consigneG = Doug_Hall_Set_Target(ir_distances[0]);
+        consigneD = Doug_Hall_Set_Target(ir_distances[1]);
+
+        if(ir_distances[1] <= consigne_position - 10)
+        {
+            DougMD_Set_Direction(DOUG_MD_REVERSE);
+            Doug_MD_Set_Motor(DOUG_MD_START);
+        }
+        else if(ir_distances[1] <= consigne_position)
+        {
+            Doug_MD_Set_Motor(DOUG_MD_STOP);
+        }
+        else
+        {
+            DougMD_Set_Direction(DOUG_MD_FORWARD);
+            Doug_MD_Set_Motor(DOUG_MD_START);
+        }
+
+        errorD = consigneD - speed_D;
+        errorG = consigneG - speed_G;
 
         PID_D = Doug_PID(errorD, &PID_motor);
         PID_G = Doug_PID(errorG, &PID_motor);
 
-       DougMD_Set_SpeedD(PID_D);
-       DougMD_Set_SpeedG(PID_G);
+        //error_positionD = consigne_position - ir_distances[1];
 
-        /* position */
-        errorG_position  = consigne_distance - ir_distances[0];
-        errorD_position  = consigne_distance - ir_distances[1];
-
-        consigne_g = errorG_position;
-        consigne_d = errorD_position;
+        //DougMD_Set_SpeedD(error_positionD);
+        //DougMD_Set_SpeedG(error_positionG);
+        DougMD_Set_SpeedD(PID_D);
+        DougMD_Set_SpeedG(PID_G);
     }
 }

@@ -4,9 +4,15 @@
 #include <stdio.h>
 
 #include "motor_driver.h"
+#include "ir_sensors/ir_sensors.h"
 
 #include "main.h"
 #include "tim.h"
+
+volatile int consigne_d = 30;
+volatile int consigne_g = 30;
+
+volatile int consigne_position = 40;
 
 volatile Doug_PID_param PID_motor =
 {

@@ -40,15 +40,17 @@ int main(void)
     consigne_d = 70;
     consigne_g = 70;
 
+    consigne_position = 40;
+
+
     while (1)
     {
         HAL_ADC_Start_DMA(&hadc1, (uint32_t*) ir_values, DOUG_IR_CHANNELS);
 
         printf
         (
-            "\r ADC : GAUCHE (( %4ld - %4.2f V - %4.2f cm )) DROITE (( %4ld - %4.2f V - %4.2f cm ))",
-            ir_values[0], ir_voltages[0], ir_distances[0],
-            ir_values[1], ir_voltages[1], ir_distances[1]
+            "\r ADC : GAUCHE (%4.2f cm) DROITE (%4.2f cm), consigne = %5d",
+            ir_distances[0], ir_distances[1], consigne
         );
 
         if
@@ -60,7 +62,7 @@ int main(void)
             Doug_MD_Set_Motor(DOUG_MD_STOP);
             continue;
         }
-
+#if 0
         if(ir_distances[0] <= 30 || ir_distances[1] <= 30)
         {
             consigne_g = 30;
@@ -99,6 +101,7 @@ int main(void)
             DougMD_Set_Direction(DOUG_MD_FORWARD);
             Doug_MD_Set_Motor(DOUG_MD_START);
         }
+        #endif
     }
 }
 
