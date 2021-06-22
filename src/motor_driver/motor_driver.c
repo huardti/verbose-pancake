@@ -4,6 +4,9 @@
 
 #include "hall_encoder.h"
 
+#define TIM_MOTOR_Gauche TIM_CHANNEL_1
+#define TIM_MOTOR_Droite TIM_CHANNEL_3
+
 void Doug_MD_Init(void)
 {
     MX_TIM1_Init();
@@ -15,17 +18,49 @@ void DougMD_Set_Direction(Doug_MD_Direction direction)
     if (direction == DOUG_MD_FORWARD)
     {
         HAL_GPIO_WritePin(DIR1_Gauche_GPIO_Port, DIR1_Gauche_Pin, GPIO_PIN_SET);
-        HAL_GPIO_WritePin(PWM1_Droite_GPIO_Port, DIR2_Droite_Pin, GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(DIR2_Droite_GPIO_Port, DIR2_Droite_Pin, GPIO_PIN_RESET);
     }
     else if (direction == DOUG_MD_REVERSE)
     {
         HAL_GPIO_WritePin(DIR1_Gauche_GPIO_Port, DIR1_Gauche_Pin, GPIO_PIN_RESET);
-        HAL_GPIO_WritePin(PWM1_Droite_GPIO_Port, DIR2_Droite_Pin, GPIO_PIN_SET);
+        HAL_GPIO_WritePin(DIR2_Droite_GPIO_Port, DIR2_Droite_Pin, GPIO_PIN_SET);
     }
     else if (direction == DOUG_MD_TOGGLE)
     {
         HAL_GPIO_TogglePin(DIR1_Gauche_GPIO_Port, DIR1_Gauche_Pin);
-        HAL_GPIO_TogglePin(PWM1_Droite_GPIO_Port, DIR2_Droite_Pin);
+        HAL_GPIO_TogglePin(DIR2_Droite_GPIO_Port, DIR2_Droite_Pin);
+    }
+}
+
+void DougMD_Set_Direction_G(Doug_MD_Direction direction)
+{
+    if (direction == DOUG_MD_FORWARD)
+    {
+        HAL_GPIO_WritePin(DIR1_Gauche_GPIO_Port, DIR1_Gauche_Pin, GPIO_PIN_RESET);
+    }
+    else if (direction == DOUG_MD_REVERSE)
+    {
+        HAL_GPIO_WritePin(DIR1_Gauche_GPIO_Port, DIR1_Gauche_Pin, GPIO_PIN_SET);
+    }
+    else if (direction == DOUG_MD_TOGGLE)
+    {
+        HAL_GPIO_TogglePin(DIR1_Gauche_GPIO_Port, DIR1_Gauche_Pin);
+    }
+}
+
+void DougMD_Set_Direction_D(Doug_MD_Direction direction)
+{
+    if (direction == DOUG_MD_FORWARD)
+    {
+        HAL_GPIO_WritePin(DIR2_Droite_GPIO_Port, DIR2_Droite_Pin, GPIO_PIN_SET);
+    }
+    else if (direction == DOUG_MD_REVERSE)
+    {
+        HAL_GPIO_WritePin(DIR2_Droite_GPIO_Port, DIR2_Droite_Pin, GPIO_PIN_RESET);
+    }
+    else if (direction == DOUG_MD_TOGGLE)
+    {
+        HAL_GPIO_TogglePin(DIR2_Droite_GPIO_Port, DIR2_Droite_Pin);
     }
 }
 
@@ -94,6 +129,7 @@ double Doug_MD_PID(int error)
     return P + I;
 }
 */
+/*
 void Doug_MD_Set_Params(Doug_MD_Direction direction, Doug_MD_Speed speed)
 {
     if (direction == DOUG_MD_FORWARD)
@@ -124,7 +160,7 @@ void Doug_MD_Set_Params(Doug_MD_Direction direction, Doug_MD_Speed speed)
         __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3,rc_g);
     }
 }
-
+*/
 void Doug_MD_Set_Motor(Doug_MD_Motor_State state)
 {
     if (state == DOUG_MD_START)
@@ -136,5 +172,29 @@ void Doug_MD_Set_Motor(Doug_MD_Motor_State state)
     {
         HAL_TIM_PWM_Stop(&htim1, TIM_CHANNEL_1);
         HAL_TIM_PWM_Stop(&htim1, TIM_CHANNEL_3);
+    }
+}
+
+void Doug_MD_Set_Motor_G(Doug_MD_Motor_State state)
+{
+    if (state == DOUG_MD_START)
+    {
+        HAL_TIM_PWM_Start(&htim1, TIM_MOTOR_Gauche);
+    }
+    else if (state == DOUG_MD_STOP)
+    {
+        HAL_TIM_PWM_Stop(&htim1, TIM_MOTOR_Gauche);
+    }
+}
+
+void Doug_MD_Set_Motor_D(Doug_MD_Motor_State state)
+{
+    if (state == DOUG_MD_START)
+    {
+        HAL_TIM_PWM_Start(&htim1, TIM_MOTOR_Droite);
+    }
+    else if (state == DOUG_MD_STOP)
+    {
+        HAL_TIM_PWM_Stop(&htim1, TIM_MOTOR_Droite);
     }
 }

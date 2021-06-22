@@ -95,8 +95,8 @@ void Error_Handler(void);
 #define COLLISION1_EXTI_IRQn EXTI4_IRQn
 #define LED2_Pin GPIO_PIN_5
 #define LED2_GPIO_Port GPIOA
-#define DIR1_Gauche_Pin GPIO_PIN_7
-#define DIR1_Gauche_GPIO_Port GPIOA
+#define DIR2_Droite_Pin GPIO_PIN_7
+#define DIR2_Droite_GPIO_Port GPIOA
 #define IR1_Pin GPIO_PIN_0
 #define IR1_GPIO_Port GPIOB
 #define PWM2_Gauche_Pin GPIO_PIN_8
@@ -105,8 +105,8 @@ void Error_Handler(void);
 #define PWM3_GPIO_Port GPIOA
 #define PWM1_Droite_Pin GPIO_PIN_10
 #define PWM1_Droite_GPIO_Port GPIOA
-#define DIR2_Droite_Pin GPIO_PIN_11
-#define DIR2_Droite_GPIO_Port GPIOA
+#define DIR1_Gauche_Pin GPIO_PIN_11
+#define DIR1_Gauche_GPIO_Port GPIOA
 #define TMS_Pin GPIO_PIN_13
 #define TMS_GPIO_Port GPIOA
 #define TCK_Pin GPIO_PIN_14

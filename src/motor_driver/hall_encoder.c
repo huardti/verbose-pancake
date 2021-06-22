@@ -9,8 +9,8 @@
 #include "main.h"
 #include "tim.h"
 
-volatile int consigne_d = 30;
-volatile int consigne_g = 30;
+volatile int consigne_G = 30;
+volatile int consigne_D = 30;
 
 volatile int consigne_position = 40;
 
@@ -23,9 +23,6 @@ volatile Doug_PID_param PID_motor =
 	.errSum = 0, //error sum
 	.lastError = 0 //last error
 };
-
-volatile int consigne_d = 30;
-volatile int consigne_g = 30;
 
 void Doug_Hall_Encoder_Init(void)
 {

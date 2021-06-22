@@ -7,8 +7,8 @@
 #define time_max_speed 3
 #define time_min_speed 40
 
-extern volatile int consigne_d;
-extern volatile int consigne_g;
+extern volatile int consigne_G;
+extern volatile int consigne_D;
 
 extern volatile int consigne_position;
 

@@ -31,26 +31,33 @@ int main(void)
     MX_ADC1_Init();
 
     Doug_MD_Init();
-    DougMD_Set_Direction(DOUG_MD_REVERSE);
-    Doug_MD_Set_Motor(DOUG_MD_START);
+    //DougMD_Set_Direction(DOUG_MD_REVERSE);
+    //Doug_MD_Set_Motor(DOUG_MD_START);
 
     printf("\e[2J\e[1;1H");
     printf("DOUG FTW\n\r");
 
-    consigne_d = 70;
-    consigne_g = 70;
+    consigne_G = 70;
+    consigne_D = 70;
 
     consigne_position = 40;
 
+    DougMD_Set_Speed(60);
 
     while (1)
     {
         HAL_ADC_Start_DMA(&hadc1, (uint32_t*) ir_values, DOUG_IR_CHANNELS);
 
+        for(int i = 0 ; i < DOUG_IR_CHANNELS ; ++i)
+        {
+            ir_voltages[i] = Doug_IR_value_to_voltage(ir_values[i]);
+            ir_distances[i] = Doug_IR_value_to_distance(ir_values[i]);
+        }
+
         printf
         (
-            "\r ADC : GAUCHE (%4.2f cm) DROITE (%4.2f cm), consigne = %5d",
-            ir_distances[0], ir_distances[1], consigne
+            "\r ADC : GAUCHE (%4.2f cm) DROITE (%4.2f cm), consigneG = %5d, consigneD = %5d",
+            ir_distances[0], ir_distances[1], consigne_G, consigne_D
         );
 
         if
@@ -62,46 +69,6 @@ int main(void)
             Doug_MD_Set_Motor(DOUG_MD_STOP);
             continue;
         }
-#if 0
-        if(ir_distances[0] <= 30 || ir_distances[1] <= 30)
-        {
-            consigne_g = 30;
-            consigne_d = consigne_g;
-            DougMD_Set_Direction(DOUG_MD_REVERSE);
-            Doug_MD_Set_Motor(DOUG_MD_START);
-            continue;
-        }
-
-
-        if(ir_distances[0] <= 40 || ir_distances[1] <= 40)
-        {
-            Doug_MD_Set_Motor(DOUG_MD_STOP);
-        }
-        else if(ir_distances[0] <= 60)
-        {
-            consigne_d = 90;
-            DougMD_Set_Direction(DOUG_MD_FORWARD);
-            Doug_MD_Set_Motor(DOUG_MD_START);
-        }
-        else if(ir_distances[1] <= 60)
-        {
-            consigne_g = 90;
-            DougMD_Set_Direction(DOUG_MD_FORWARD);
-            Doug_MD_Set_Motor(DOUG_MD_START);
-        }
-        else if(ir_distances[0] > 60)
-        {
-            consigne_d = 70;
-            DougMD_Set_Direction(DOUG_MD_FORWARD);
-            Doug_MD_Set_Motor(DOUG_MD_START);
-        }
-        else if(ir_distances[1] > 60)
-        {
-            consigne_g = 70;
-            DougMD_Set_Direction(DOUG_MD_FORWARD);
-            Doug_MD_Set_Motor(DOUG_MD_START);
-        }
-        #endif
     }
 }
 
