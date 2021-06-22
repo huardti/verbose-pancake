@@ -14,8 +14,8 @@ volatile int errorG;
 volatile int error_positionD;
 volatile int error_positionG;
 
-volatile int consigne_G;
-volatile int consigne_D;
+extern volatile int consigne_G;
+extern volatile int consigne_D;
 
 volatile int PID_D;
 volatile int PID_G;
