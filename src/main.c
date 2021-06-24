@@ -59,8 +59,8 @@ int main(void)
 
         printf
         (
-            "\r ADC : GAUCHE (%6.2f cm) DROITE (%6.2f cm) ULTRASOUND (%6.2f cm), consigneG = %5d, consigneD = %5d",
-            ir_distances[0], ir_distances[1], ir_distances[2], consigne_G, consigne_D
+            "\r ADC : GAUCHE (%6.2f cm) DROITE (%6.2f cm) ULTRASOUND (%6.2f cm), consigneG = %5d, consigneD = %5d   GO %s",
+            ir_distances[0], ir_distances[1], ir_distances[2], consigne_G, consigne_D, side_memory == MEMORY_LEFT ? " LEFT" : "RIGHT"
         );
     }
 }

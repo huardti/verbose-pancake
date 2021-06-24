@@ -44,10 +44,34 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     #if 1
     if(htim->Instance == htim6.Instance)
     {
+        // Mémoire en cas de sortie de la cible du champ
+        if(ir_distances[0] <= 100 && ir_distances[1] >= 100 )//&& ir_distances[2] >= 100)
+        {
+            side_memory = MEMORY_LEFT;
+        }
+        else if(ir_distances[0] >= 100 && ir_distances[1] <= 100)// && ir_distances[2] >= 100)
+        {
+            side_memory = MEMORY_RIGHT;
+        }
+
         if(ir_distances[0] >= 100 && ir_distances[1] >= 100 && ir_distances[2] >= 100)
         {
-            Doug_MD_Set_Motor_G(DOUG_MD_STOP);
-            Doug_MD_Set_Motor_D(DOUG_MD_STOP);
+            DougMD_Set_SpeedG(SCAN_SPEED);
+            DougMD_Set_SpeedD(SCAN_SPEED);
+
+            if(side_memory == MEMORY_LEFT)
+            {
+                DougMD_Set_Direction_G(DOUG_MD_REVERSE);
+                DougMD_Set_Direction_D(DOUG_MD_FORWARD);
+            }
+            else if(side_memory == MEMORY_RIGHT)
+            {
+                DougMD_Set_Direction_G(DOUG_MD_FORWARD);
+                DougMD_Set_Direction_D(DOUG_MD_REVERSE);
+            }
+
+            Doug_MD_Set_Motor_G(DOUG_MD_START);
+            Doug_MD_Set_Motor_D(DOUG_MD_START);
 
             return;
         }
