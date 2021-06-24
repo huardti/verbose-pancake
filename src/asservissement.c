@@ -87,12 +87,56 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
         errorG = consigne_G - speed_G;
 
         PID_G = Doug_PID(errorG, &PID_motor);
-
-        //error_positionD = consigne_position - ir_distances[1];
-
-        //DougMD_Set_SpeedD(error_positionD);
-        //DougMD_Set_SpeedG(error_positionG);
         DougMD_Set_SpeedG(PID_G);
+#endif
+
+#if 1
+        // Ultrason
+        if(ir_distances[0] > consigne_position || ir_distances[1] > consigne_position)
+        {
+        if(ir_distances[2] <= consigne_position - 10)
+        {
+            consigne_G = Doug_Hall_Set_Target(ir_distances[2]);
+            consigne_D = Doug_Hall_Set_Target(ir_distances[2]);
+
+            errorG = consigne_G - speed_G;
+            PID_G = Doug_PID(errorG, &PID_motor);
+            DougMD_Set_SpeedG(PID_G);
+            errorD = consigne_D - speed_D;
+            PID_D = Doug_PID(errorD, &PID_motor);
+            DougMD_Set_SpeedD(PID_D);
+
+            DougMD_Set_Direction_G(DOUG_MD_REVERSE);
+            Doug_MD_Set_Motor_G(DOUG_MD_START);
+            DougMD_Set_Direction_D(DOUG_MD_REVERSE);
+            Doug_MD_Set_Motor_D(DOUG_MD_START);
+        }
+        else if (ir_distances[2] <= consigne_position)
+        {
+            Doug_MD_Set_Motor_G(DOUG_MD_STOP);
+            Doug_MD_Set_Motor_D(DOUG_MD_STOP);
+        }
+        }
+#if 0
+        else
+        {
+            consigne_G = Doug_Hall_Set_Target(ir_distances[2]);
+            consigne_D = Doug_Hall_Set_Target(ir_distances[2]);
+
+            errorG = consigne_G - speed_G;
+            PID_G = Doug_PID(errorG, &PID_motor);
+            DougMD_Set_SpeedG(PID_G);
+            errorD = consigne_D - speed_D;
+            PID_D = Doug_PID(errorD, &PID_motor);
+            DougMD_Set_SpeedD(PID_D);
+
+            DougMD_Set_Direction_G(DOUG_MD_FORWARD);
+            Doug_MD_Set_Motor_G(DOUG_MD_START);
+            DougMD_Set_Direction_D(DOUG_MD_FORWARD);
+            Doug_MD_Set_Motor_D(DOUG_MD_START);
+        }
+#endif
+#endif
     }
     #endif
 }

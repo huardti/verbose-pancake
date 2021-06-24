@@ -21,3 +21,4 @@ extern volatile IrDistance ir_distances[DOUG_IR_CHANNELS];
 IrVoltage Doug_IR_value_to_voltage(IrValue value);
 IrDistance Doug_IR_voltage_to_distance(IrVoltage voltage);
 IrDistance Doug_IR_value_to_distance(IrValue value);
+IrDistance Doug_US_value_to_distance(IrValue value);

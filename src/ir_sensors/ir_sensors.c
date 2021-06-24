@@ -1,4 +1,5 @@
 #include "ir_sensors.h"
+#include "motor_driver/hall_encoder.h"
 
 IrVoltage Doug_IR_value_to_voltage(IrValue value)
 {
@@ -26,4 +27,9 @@ IrDistance Doug_IR_value_to_distance(IrValue value)
         return 150;
     else
         return return_value;
+}
+
+IrDistance Doug_US_value_to_distance(IrValue value)
+{
+    return value * 20 / 25;
 }
