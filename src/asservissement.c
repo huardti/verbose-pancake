@@ -44,6 +44,14 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     #if 1
     if(htim->Instance == htim6.Instance)
     {
+        if(ir_distances[0] >= 100 && ir_distances[1] >= 100 && ir_distances[2] >= 100)
+        {
+            Doug_MD_Set_Motor_G(DOUG_MD_STOP);
+            Doug_MD_Set_Motor_D(DOUG_MD_STOP);
+
+            return;
+        }
+#if 1
         consigne_G = Doug_Hall_Set_Target(ir_distances[0]);
         consigne_D = Doug_Hall_Set_Target(ir_distances[1]);
 
